@@ -1,0 +1,1 @@
+savedcmd_lkp_info.ko := ld -r -m elf_x86_64 --fatal-warnings -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T /home/gabriel/kernel/linux-6.18/scripts/module.lds -o lkp_info.ko lkp_info.o lkp_info.mod.o .module-common.o

@@ -45,7 +45,7 @@ static int lkp_info_show(struct seq_file *m, void *v)
 	unsigned long diff = now - load_jiffies;
 
 	seq_printf(m, "Uptime since load: ");
-	seq_printf(m, "%lu\n", jiffies_to_msecs(diff));
+	seq_printf(m, "%u\n", jiffies_to_msecs(diff));
 
 
     //Show acccess count
@@ -106,7 +106,7 @@ static void __exit lkp_info_exit(void)
 {
 	/*Remove the /proc entry */
 
-	proc_remove(proc_entry)
+	proc_remove(proc_entry);
 	pr_info("module unloaded\n");
 }
 

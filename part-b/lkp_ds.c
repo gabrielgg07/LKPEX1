@@ -215,7 +215,7 @@ static int lkp_ds_show(struct seq_file *m, void *v)
 
 	//use the same entry again?
 	seq_printf(m, "XArray: ");
-	int index;
+	unsigned long index;
 	xa_for_each(&my_xarray, index, e) {
 		seq_printf(m, "%d, ", e->value);
 	}
@@ -339,7 +339,7 @@ static int run_benchmark(void)
 		//Fill in the value
 		he->value = random[i];
 		
-		hash_add(bench_htable, &he->hnode, he->val);
+		hash_add(bench_htable, &he->hnode, he->value);
 	}
 	elapsed = ktime_get_ns() - start;
 	bench_insert_ns[1] = elapsed / bench_n;
@@ -367,7 +367,7 @@ static int run_benchmark(void)
 	start = ktime_get_ns();
 	for(int i = 0; i < bench_n; i++ ){
 		struct my_entry *xe;
-		re = kmalloc(sizeof(*xe), GFP_KERNEL);
+		xe = kmalloc(sizeof(*xe), GFP_KERNEL);
 		if (!xe)
 			return -ENOMEM;
 		//Fill in the value
@@ -384,11 +384,11 @@ static int run_benchmark(void)
 	start = ktime_get_ns();
 	for(int i = 0; i < bench_n; i++ ){
 		struct my_entry *e;
-		bool found;
-		target = random[i]
+		//bool found;
+		int target = random[i];
 		list_for_each_entry(e, &bench_list, list) {
 			if (e->value == target) {
-				found = true;
+				//found = true;
 				break;
 			}
 		}
@@ -398,7 +398,6 @@ static int run_benchmark(void)
 	bench_lookup_ns[0] = elapsed / bench_n;
 
 
-	int bkt;
 	start = ktime_get_ns();
 	
 	for (int i = 0; i < bench_n; i++) {
@@ -445,8 +444,46 @@ static int run_benchmark(void)
 	elapsed = ktime_get_ns() - start;
 	bench_lookup_ns[3] = elapsed / bench_n;
 
+	//Must Free All!
+	//Free the list 
+	struct my_entry *list_entry;
+	struct my_entry *list_tmp;
+	list_for_each_entry_safe(list_entry, list_tmp, &bench_list, list) {
+		list_del(&list_entry->list);
+		kfree(list_entry);
+	}
 
-	
+	//Free the hashtable
+	struct my_entry *he;
+	struct hlist_node *tmp_hnode;
+	int bkt;
+
+	hash_for_each_safe(bench_htable, bkt, tmp_hnode, he, hnode) {
+		hash_del(&he->hnode);
+		kfree(he);
+	}
+
+	//Free the rb tree
+	struct rb_node *node;
+	for (node = rb_first(&bench_tree); node; ) {
+		struct my_entry *re = rb_entry(node, struct my_entry, node);
+		node = rb_next(node);
+		rb_erase(&re->node, &bench_tree);
+		kfree(re);
+	}
+
+	unsigned long index_delete;
+	struct my_entry *xe;
+
+	xa_for_each(&bench_xarray, index_delete, xe) {
+		xa_erase(&bench_xarray, index_delete);
+		kfree(xe);
+	}
+	xa_destroy(&bench_xarray);
+
+
+
+
 	kfree(random);
 
 

@@ -1,0 +1,1 @@
+./lkp_info.o
