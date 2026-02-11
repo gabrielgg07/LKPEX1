@@ -1,0 +1,71 @@
+# N  list_ins  hash_ins  rb_ins  xa_ins  list_lkp  hash_lkp  rb_lkp  xa_lkp
+100  48 61 71 70  62 12 26 6 
+LKP Data Structure Benchmark (N=100)
+=======================================
+Insert (ns/op):
+  Linked list:    48
+  Hash table:     61
+  Red-black tree: 71
+  XArray:         70
+
+Lookup (ns/op):
+  Linked list:    62
+  Hash table:     12
+  Red-black tree: 26
+  XArray:         6
+1000  45 16 61 27  1220 52 41 5 
+LKP Data Structure Benchmark (N=1000)
+=======================================
+Insert (ns/op):
+  Linked list:    45
+  Hash table:     16
+  Red-black tree: 61
+  XArray:         27
+
+Lookup (ns/op):
+  Linked list:    1220
+  Hash table:     52
+  Red-black tree: 41
+  XArray:         5
+5000  20 11 77 59  6674 508 61 7 
+LKP Data Structure Benchmark (N=5000)
+=======================================
+Insert (ns/op):
+  Linked list:    20
+  Hash table:     11
+  Red-black tree: 77
+  XArray:         59
+
+Lookup (ns/op):
+  Linked list:    6674
+  Hash table:     508
+  Red-black tree: 61
+  XArray:         7
+10000  17 12 131 28  11248 1300 72 8 
+LKP Data Structure Benchmark (N=10000)
+=======================================
+Insert (ns/op):
+  Linked list:    17
+  Hash table:     12
+  Red-black tree: 131
+  XArray:         28
+
+Lookup (ns/op):
+  Linked list:    11248
+  Hash table:     1300
+  Red-black tree: 72
+  XArray:         8
+50000  21 14 156 42  54660 12812 136 7 
+LKP Data Structure Benchmark (N=50000)
+=======================================
+Insert (ns/op):
+  Linked list:    21
+  Hash table:     14
+  Red-black tree: 156
+  XArray:         42
+
+Lookup (ns/op):
+  Linked list:    54660
+  Hash table:     12812
+  Red-black tree: 136
+  XArray:         7

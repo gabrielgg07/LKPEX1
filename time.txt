@@ -1,10 +1,11 @@
-Part A.1 (Hello LKP): X hours
-Part A.2 (/proc Interface): Y hours
-Part B.1 (List & Hash): Z hours
-Part B.2 (RB-Tree & XArray): W hours
-Part B.3 (Benchmark): V hours
-Conceptual Questions: U hours
-Total: N hours
+Part A.1 (Hello LKP): 1 hours
+Part A.2 (/proc Interface): 1.5 hours
+Part B.1 (List & Hash): 1 hours
+Part B.2 (RB-Tree & XArray): 4 hours
+Part B.3 (Benchmark): 1.5 hours
+Conceptual Questions: 1 hours
+Total: 9 hours
 
-Biggest challenge: <description>
-Most interesting discovery: <description>
+Biggest challenge: Understanding XArray implmenetation on the kernel level. 
+Most interesting discoveryHonestly I think one of the best value things I got from this exercise was seeing /proc/filename working in real time. This honestly helped lessen 
+the abstraction of the VFS and the levels of kernel calls to read from this file. 
